@@ -1,0 +1,221 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{polynom}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{hyperref}
+\usepackage{cancel}
+\usepackage{slashed}
+\usepackage{breqn}
+\usepackage{enumitem}
+
+\pagestyle{fancy}
+
+\setlength{\headheight}{14.49998pt}
+\setlength\parindent{0pt} %NO INDENT
+\hypersetup{
+	colorlinks=true, %set true if you want colored links
+	linktoc=all,     %set to all if you want both sections and subsections linked
+	linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+\DeclareMathOperator*{\res}{Res}
+\DeclareMathOperator{\Div}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\Int}{int}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\grad}{\nabla}
+\DeclareMathOperator{\Grad}{grad}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\Span}{span}
+
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}[proposition]{Theorem}
+\newtheorem{corollary}[proposition]{Corollary}
+\newtheorem{lemma}[proposition]{Lemma}
+\newtheorem{definition}[proposition]{Definition}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\nablaa}{\cancel{\nabla}}
+\newcommand{\lec}{\lesssim}
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+\newcommand{\oo}{\"{o}}
+
+\title{Homework 3}
+\author{Zucca}
+
+\fancypagestyle{firstpage}{
+	\fancyhf{}
+	\fancyhead[L]{PDEs Homework 5}
+	\fancyhead[R]{Steve Zucca}
+	\fancyfoot[C]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+}
+\fancyhead[R]{Zucca}
+\begin{document}
+	\thispagestyle{firstpage}
+	\textbf{Problem \# 1}. (Exercise 1.4.1a) Let $H(t,x)$ be the heat kernel on $(0,\infty)\times \mathbb{R}^n$. Define its extension to $\mathbb{R}\times \mathbb{R}^n$ by 
+	\[
+		H_e(t,x)=
+		\begin{cases}
+			H(t,x) & : t> 0 \\
+			0 & : t\leq 0
+		\end{cases}
+	\]
+	\begin{enumerate}[label=(\alph*)]
+		\item Show that $H_e \in L^1_{\text{loc}}(\mathbb{R}\times \mathbb{R}^n)$, and thus $H_e\in \mathcal{D}'(\mathbb{R}\times \mathbb{R}^n)$.
+
+	\begin{solution} Let $K\subset \mathbb{R}\times \mathbb{R}^n$ be compact. So, $K\subset [-T,T]\times\overline{B(0,R)}$, where $0<T,R<\infty$. Therefore,
+		\begin{equation}
+			\begin{aligned}
+				\int_K |H_e|\,dm &= \int_{-T}^T \int_{\overline{B(0,R)}} |H_e|\,dx\,dt = \lim_{\epsilon\to 0^+} \int_\epsilon^T \int_{\overline{B(0,R)}}|H(t,x)|\,dx\,dt \\ 
+				&= \lim_{\epsilon\to 0^+}\int_\epsilon^T \int_{\overline{B(0,R)}} (4\pi t)^{-\frac{n}{2}}e^{-\frac{|x|^2}{4t}}\,dx\,dt \\
+				&\leq \lim_{\epsilon\to 0^+} \int_\epsilon^T (4\pi t)^{-\frac{n}{2}}\int_{\mathbb{R}^n}e^{-\frac{|x|^2}{4t}}\,dx\,dt = \lim_{\epsilon\to 0^+}\int_\epsilon^T (4\pi t)^{-\frac{n}{2}}(4\pi t)^{\frac{n}{2}}\,dt \\
+				&= \lim_{\epsilon\to 0^+} T-\epsilon = T \\
+				&< \infty
+			\end{aligned}
+		\end{equation}
+		So, $H_e\in L^1_{\text{loc}}(\mathbb{R}\times \mathbb{R}^n)$.
+	\end{solution}
+\item Show that $ H_e $ is a fundamental solution for the heat operator, that is,
+\[
+	(\partial_t -\Delta)H_e = \delta\in \mathcal{D}'(\mathbb{R}\times \mathbb{R}^n)
+\]
+\begin{solution}
+	For $ \eta > 0 $, define
+	\[
+		H_\eta(x,t) = \begin{cases}
+			H_e & : t> \eta \\
+			0 & : t\leq\eta
+		\end{cases}
+	\]
+	\begin{enumerate}[label=(\roman*)]
+		\item $H_\eta\to H_e$ in $\mathcal{D}'(\mathbb{R}\times \mathbb{R}^n)$, as $\eta\to 0$.
+		
+		Let $\phi\in \mathcal{D}(\mathbb{R}\times \mathbb{R}^n)$, and let $\epsilon > 0$. Choose $\eta>0$ so that $\eta < \frac{\epsilon}{\left|\left|\phi \right|\right|_{L^\infty}}$. Assume that $\supp \phi\subset [-T,T]\times\overline{B(0,R)}$, where $0<T,R<\infty$. Then,
+		\begin{equation}
+			\begin{aligned}
+				\left| \langle H_\eta,\phi\rangle - \langle H_e,\phi\rangle \right|&= \left| \int (H_\eta-H_e)\phi\,dm \right| = \left| \int_{0}^\eta \int_{\overline{B(0,R)}} -H_e\phi\,dx\,dt \right| \\
+				&\leq \left|\left|\phi \right|\right|_{L^\infty} \int_{0}^\eta \int_{\mathbb{R}^n} H_e\,dx\,dt = \left|\left|\phi \right|\right|_{L^\infty} \lim_{\delta\to 0^+} \int_{\delta}^\eta \int_{\mathbb{R}^n} H\,dx\,dt \\
+				&= \left|\left|\phi \right|\right|_{L^\infty} \eta \\
+				& < \epsilon
+			\end{aligned}
+		\end{equation}
+		So, $H_\eta\to H_e$ in as $\eta\to 0$.
+		\newpage 
+		\item $(\partial_t-\Delta)H_\eta \to \delta$ in $\mathcal{D}'(\mathbb{R}\times \mathbb{R}^n)$ as $\eta\to 0$.
+		
+		For $\phi\in \mathcal{D}(\mathbb{R}\times \mathbb{R}^n)$, we have
+		\begin{equation}
+			\begin{aligned}
+				\langle (\partial_t-\Delta)H_\eta,\phi\rangle &= \langle H_\eta,(-\partial_t-\Delta)\phi\rangle = \int_{\eta}^\infty \int_{\mathbb{R}^n} H_e(-\partial_t-\Delta)\phi\,dx\,dt \\
+				&= \int_{\mathbb{R}^n} H(\eta,x)\phi(\eta,x)\,dx + \cancel{\int_{\eta}^\infty \int_{\mathbb{R}^n} (\partial_t-\Delta)H\phi\,dx\,dt}
+			\end{aligned}
+		\end{equation}
+		Since $H$ is an approximate identity, we have that 
+		\begin{equation}\label{Delta}
+			\lim_{\eta\to 0} \langle (\partial_t-\Delta)H_\eta,\phi\rangle = \phi(0) = \langle \delta,\phi\rangle
+		\end{equation}
+		Since this holds for all such $\phi$, we have that $\lim_{\eta\to 0}(\partial_t-\Delta)H_\eta = \delta$ in $\mathcal{D}'(\mathbb{R}\times \mathbb{R}^n).$
+		
+		Clearly, $(\partial_t-\Delta)$ is a differential operator with smooth coefficients. Therefore, $(\partial_t-\Delta):\mathcal{D}'(\mathbb{R}\times \mathbb{R}^n)\to \mathcal{D}'(\mathbb{R}\times \mathbb{R}^n)$ is continuous, and we have
+		\begin{equation}
+			\delta = \lim_{\eta\to 0}(\partial_t-\Delta )H_\eta = (\partial_t-\Delta)(\lim_{\eta\to 0}H_\eta) = (\partial_t-\Delta)H_e
+		\end{equation}
+		\item Where does your argument use the fact that the topology of $\mathcal{D}'(\mathbb{R}\times \mathbb{R}^n)$ is Hausdorff?
+		
+		We used Hausdorff(ness) in (5). We have that $\lim_{\eta\to 0}(\partial_t-\Delta)H_\eta = \delta$, and we have that $\lim_{\eta\to 0}(\partial_t-\Delta)H_\eta = (\partial_t-\Delta)H_e$. We use the fact that limits are unique to conclude that $\delta=(\partial_t-\Delta)H_e$.
+	\end{enumerate}
+\end{solution}
+		\end{enumerate}
+	\textbf{Problem \# 4}. (\S 1.7 Problem 2) Consider the Schrodinger initial value problem
+	\[
+		\begin{cases}
+			u_t-i\Delta u = 0 \\
+			u(0,\cdot) = g\in \mathcal{S}(\mathbb{R}^n)
+		\end{cases}
+	\]
+	\begin{enumerate}[label=(\alph*)]
+		\item Starting with the heat equation, explain how a complex change of variable $t\mapsto it$ can be used to quickly derive the solution formula
+		\[
+			u(t,x)=(4\pi i t)^{-\frac{n}{2}}\int e^{-\frac{|x-y|^2}{4it}}g(y)\,dy
+		\]
+		\begin{solution}
+			Suppose $w$ solves 
+			\begin{equation}
+				\begin{cases}
+					w_t-\Delta w = 0 \\
+					w(0,\cdot)=g\in \mathcal{S}(\mathbb{R}^n)
+				\end{cases}
+			\end{equation}
+			We know that the \textit{unique} solution to this problem is 
+			\begin{equation}
+				w(t,x)=(4\pi t)^{-\frac{n}{2}}\int e^{-\frac{|x-y|^2}{4t}}g(y)\,dy
+			\end{equation}
+			Now, let $s= -it$, and let $\tilde{w}=w(s,x)$. By the chain rule, we know $\partial_t\mapsto -i\partial_s$, so we have
+			\begin{equation}
+				\begin{cases}
+					-i\tilde{w}_s-\Delta\tilde{w}=0\implies \tilde{w}_s-i\Delta\tilde{w}=0 \\
+					\tilde{w}(0,\cdot)=g
+				\end{cases}
+			\end{equation}
+			In other words, $\tilde{w}$ solves the Schrodinger initial value problem. Since all we did was change variables, we have that
+			\begin{equation}
+				\tilde{w}(t,x)=w(it,x) = (4\pi it)^{-\frac{n}{2}}\int e^{-\frac{|x-y|^2}{4it}}g(y)\,dy
+			\end{equation}
+			as desired. This is a \textit{derivation}. To actually show that this candidate solves the IVP, we have to go through the usual steps to justify differentiation under the integral sign.
+		\end{solution}
+		\item Prove the dispersive estimate
+		\[
+			\left| u(t,x) \right|\leq C t^{-\frac{n}{2}}\left|\left|g \right|\right|_{L^1} 
+		\]
+		\begin{solution}
+			This is trivial.
+			\[
+				\left| u(t,x) \right| \leq \left|(4\pi i t)^{-\frac{n}{2}}\right| \int \left|e^{-\frac{|x-y|^2}{4it}}g(y)\right| \,dy = |(4\pi i t)|^{-\frac{n}{2}}\int 1\cdot |g(y)|\,dy \leq C t^{-\frac{n}{2}}\left|\left|g \right|\right|_{L^1}
+			\]
+		\end{solution}
+		\item Define $E(t)=\int |u|^2\,dx$. Use an energy method to show that $E$ is a constant function of $t$.
+		\begin{solution}
+			\begin{align*}
+				E'(t) &= \int u_t \overline{u} + u \overline{u}_t\,dx = 2\Re \int u_t\overline{u}\,dx = 2\Re \int i\Delta u \overline{u}\,dx \\
+				&= 2\Re \int (-i) |\nabla u|^2\,dx = 0
+			\end{align*}
+			since the last quantity is pure imaginary. To get to the second line, we used Gauss-Green and the fact that the solution $u\in S(\mathbb{R}_+\times \mathbb{R}^n)$, so there are no boundary terms.
+			
+			Therefore, $E$ is a constant function of $t$.
+		\end{solution}
+		\item Re-derive the result of (c) using the Fourier Transform.
+		\begin{solution}
+			By Plancherel's Theorem\footnote{This was proven in Harmonic Analysis. The key property is that $\int \hat{f}g\,d'\xi=\int f\hat{g}\,d'x$.}
+			\begin{equation}
+				\begin{aligned}
+					\left|\left|u \right|\right|_{L^2_x}^2 &= \left|\left|\hat{u} \right|\right|_{L^2_\xi}^2\\ &= \left|\left|\int e^{-ix\cdot\xi}u(t,x)\,d'x \right|\right|_{L^2_\xi}^2\\ &= \left|\left|(4\pi i t)^{-\frac{n}{2}}\int e^{-ix\cdot\xi}\int e^{-\frac{|x-y|^2}{4it}}g(y)\,dy\,d'x \right|\right|_{L^2_\xi}^2 \\
+					&\stackrel{A}{=} \left|\left|(4\pi i t)^{-\frac{n}{2}}\int g(y)\int e^{-ix\cdot\xi}e^{-\frac{|x-y|^2}{4it}}\,d'x\,dy \right|\right|_{L^2_\xi}^2 \\
+					&= \left|\left|(4\pi i t)^{-\frac{n}{2}}\int g(y) e ^{-iy\cdot\xi}\int e^{-ix\cdot\xi}e^{-\frac{|x|^2}{4it}}\,d'x\,dy \right|\right|_{L^2_\xi}^2&\qquad (\text{F.T. of Translation}) \\
+					&\stackrel{B}{=} \left|\left|(4\pi i t)^{-\frac{n}{2}}\int g(y) e ^{-iy\cdot\xi} (2it)^{\frac{n}{2}}\int e^{-ix\cdot(\sqrt{2it}\xi)}e^{-\frac{|x|^2}{2}}\,d'x\,dy \right|\right|_{L^2_\xi}^2 \\
+					&= \left|\left|(4\pi i t)^{-\frac{n}{2}}\int g(y) e ^{-iy\cdot\xi} (2it)^{\frac{n}{2}}\int e^{-ix\cdot(\sqrt{2it}\xi)}e^{-\frac{|x|^2}{2}}\,d'x\,dy \right|\right|_{L^2_\xi}^2 \\
+					&= \left|\left|(2\pi)^{-\frac{n}{2}}e^{-it|\xi|^2}\int g(y) e ^{-iy\cdot\xi} \,dy \right|\right|_{L^2_\xi}^2 \\
+					&= \left|\left|\int g(y)e^{-iy\cdot\xi}\,d'y \right|\right|_{L^2_\xi}^2 &\qquad \text{since } \left| e^{-it|\xi|^2} \right|=1  \\
+					&= \left|\left|\hat{g}(\xi) \right|\right|_{L^2_\xi}^2 \\
+					&= \left|\left|g \right|\right|_{L^2_x}^2
+				\end{aligned}
+			\end{equation}
+			In equality $(A)$, we used Fubini's Theorem which is valid since $g\in \mathbb{S}(\mathbb{R}^n)$ and the Gaussian is rapidly decaying.
+			
+			In equality $(B)$, we are using Cauchy's Residue Theorem. We only have the Fourier dilation theorem for real scalars, so we have to justify deforming the contour. I'd rather not get into this.
+			
+			Clearly, this result is independent of $t$.
+		\end{solution}
+	\end{enumerate}
+	
+\end{document}
