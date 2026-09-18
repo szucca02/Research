@@ -18,15 +18,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Install LaTeXML
         run: |
           sudo apt-get update
           sudo apt-get install -y latexml
 
-      - name: Convert LaTeX files
+      - name: Convert changed LaTeX files
         run: |
-          for file in theorems/*.tex; do
+          git diff --name-only HEAD^ HEAD -- 'theorems/*.tex' | while read file; do
             [ -e "$file" ] || continue
             base="${file%.tex}"
             latexmlc "$file" \
