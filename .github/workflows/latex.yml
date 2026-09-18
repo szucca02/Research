@@ -7,6 +7,7 @@ on:
   push:
     paths:
       - 'theorems/**/*.tex'
+      - 'math.css'
       - '.github/workflows/latex.yml'
   workflow_dispatch:
 
@@ -30,7 +31,8 @@ jobs:
             base="${file%.tex}"
             latexmlc "$file" \
               --destination="$base.html" \
-              --format=html5
+              --format=html5 \
+              --css=../math.css
           done
 
       - name: Commit generated HTML
