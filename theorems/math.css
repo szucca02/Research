@@ -1,36 +1,27 @@
-/* Overrides for LaTeXML mathematical documents */
+/* LaTeXML theorem styling */
 
-.ltx_document {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 18px;
-    line-height: 1.55;
+.ltx_theorem .ltx_title_theorem {
+    display: block !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    font-style: normal !important;
+    margin-bottom: 8px !important;
 }
 
-/* Proposition / theorem */
-.ltx_title_theorem {
-    font-size: 1em !important;
+.ltx_proof .ltx_title_proof {
+    display: block !important;
+    font-size: 18px !important;
     font-weight: bold !important;
+    font-style: normal !important;
+    margin-bottom: 8px !important;
 }
 
 .ltx_theorem {
-    margin-top: 1.5em !important;
-    margin-bottom: 1.5em !important;
-}
-
-/* Proof */
-.ltx_title_proof {
-    font-size: 1em !important;
-    font-weight: bold !important;
-    font-style: normal !important;
+    margin-top: 24px !important;
+    margin-bottom: 24px !important;
 }
 
 .ltx_proof {
-    margin-top: 1.5em !important;
-    margin-bottom: 1.5em !important;
-}
-
-/* Normal paragraphs */
-.ltx_para {
-    margin-top: 0.7em !important;
-    margin-bottom: 0.7em !important;
+    margin-top: 24px !important;
+    margin-bottom: 24px !important;
 }
