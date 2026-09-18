@@ -1,53 +1,81 @@
-/* Mathematical document styling */
+/* Clean mathematical document */
+
+html {
+    background: white;
+}
 
 body {
-    max-width: 850px;
-    margin: 50px auto;
-    padding: 0 35px;
+    max-width: 760px;
+    margin: 60px auto;
+    padding: 0 30px;
+
+    background: white;
+    color: #222;
 
     font-family: Georgia, "Times New Roman", serif;
     font-size: 18px;
-    line-height: 1.6;
-    color: #222;
+    line-height: 1.55;
 }
 
-/* Proposition / theorem headings */
-.ltx_title_theorem {
-    font-size: 1.15em !important;
-    font-weight: bold;
-    margin-bottom: 0.5em;
+/* Remove LaTeXML's document chrome */
+.ltx_page_header,
+.ltx_page_footer,
+.ltx_bibliography,
+.ltx_navigation {
+    display: none;
 }
 
-/* Proof heading */
-.ltx_title_proof {
-    font-size: 1.05em !important;
-    font-weight: bold;
-    font-style: normal !important;
-    margin-top: 1.5em;
-    margin-bottom: 0.5em;
-}
-
-/* Theorem/proposition blocks */
+/* Proposition / theorem */
 .ltx_theorem {
-    margin: 1.5em 0;
+    margin: 2em 0;
 }
 
-/* Proof blocks */
+.ltx_title_theorem {
+    display: block !important;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 19px !important;
+    font-weight: bold !important;
+    font-style: normal !important;
+    margin: 0 0 0.6em 0 !important;
+}
+
+/* Proof */
 .ltx_proof {
     margin: 1.5em 0;
 }
 
-/* Paragraphs */
+.ltx_title_proof {
+    display: block !important;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    font-style: normal !important;
+    margin: 0 0 0.5em 0 !important;
+}
+
+/* Ordinary text */
 p {
-    margin: 0.7em 0;
+    margin: 0.6em 0;
 }
 
-/* Displayed equations */
+/* Equations */
 .ltx_equation {
-    margin: 1em 0;
+    margin: 1.2em 0 !important;
 }
 
-/* Don't let LaTeXML's tiny heading defaults win */
+/* Equation numbers */
+.ltx_tag_equation {
+    font-size: 0.9em;
+}
+
+/* Lists */
+ul, ol {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+/* Headings */
 h1, h2, h3, h4, h5, h6 {
+    font-family: Georgia, "Times New Roman", serif;
     line-height: 1.3;
 }
