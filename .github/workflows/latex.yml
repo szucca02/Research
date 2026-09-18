@@ -33,7 +33,7 @@ jobs:
             latexmlc "$file" \
               --destination="$base.html" \
               --format=html5 \
-              --css=math.css
+              --css=theorems/math.css
           done
 
       - name: Commit generated HTML
