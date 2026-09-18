@@ -1,9 +1,4 @@
-title: Research
-description: A collection of my research
-
-theme: null
+title: My Mathematics
+description: A collection of mathematical results
 
 markdown: kramdown
-
-kramdown:
-	math_engine: mathjax
