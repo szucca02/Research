@@ -7,6 +7,9 @@ on:
       - '.github/workflows/latex.yml'
   workflow_dispatch:
 
+  permissions:
+    contents: write
+
 jobs:
   latex-to-html:
     runs-on: ubuntu-latest
