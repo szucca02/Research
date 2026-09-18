@@ -9,23 +9,17 @@ body {
     line-height: 1.6;
 }
 
+.ltx_title_theorem {
+    font-size: 1.1em !important;
+}
+
+.ltx_title_proof {
+    font-size: 1.1em !important;
+}
+
 .ltx_theorem,
 .ltx_proof {
     font-size: 1em;
-    margin: 1.5em 0;
-}
-
-.ltx_theorem .ltx_title,
-.ltx_proof .ltx_title {
-    font-weight: bold;
-}
-
-.ltx_theorem {
     margin-top: 1.5em;
-    margin-bottom: 1.5em;
-}
-
-.ltx_proof {
-    margin-top: 1em;
     margin-bottom: 1.5em;
 }
