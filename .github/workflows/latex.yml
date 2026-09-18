@@ -29,6 +29,7 @@ jobs:
         run: |
           git diff --name-only HEAD^ HEAD -- 'theorems/*.tex' | while read file; do
             [ -e "$file" ] || continue
+
             filename="$(basename "$file")"
             base="${filename%.tex}"
 
@@ -54,5 +55,16 @@ jobs:
           fi
 
           git commit -m "Build LaTeX files to HTML"
-          git pull --rebase origin main
-          git push
+
+          for i in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main
+
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+
+            sleep 5
+          done
+
+          exit 1
