@@ -29,11 +29,17 @@ jobs:
         run: |
           git diff --name-only HEAD^ HEAD -- 'theorems/*.tex' | while read file; do
             [ -e "$file" ] || continue
-            base="${file%.tex}"
-            latexmlc "$file" \
+            filename="$(basename "$file")"
+            base="${filename%.tex}"
+
+            cd theorems
+
+            latexmlc "$filename" \
               --destination="$base.html" \
               --format=html5 \
-              --css=theorems/math.css
+              --css=math.css
+
+            cd ..
           done
 
       - name: Commit generated HTML
