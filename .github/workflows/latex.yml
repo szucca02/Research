@@ -1,0 +1,39 @@
+name: Convert LaTeX to HTML
+
+on:
+  push:
+    paths:
+      - 'theorems/**/*.tex'
+      - '.github/workflows/latex.yml'
+  workflow_dispatch:
+
+jobs:
+  latex-to-html:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install LaTeXML
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y latexml
+
+      - name: Convert LaTeX files
+        run: |
+          for file in theorems/*.tex; do
+            [ -e "$file" ] || continue
+            base="${file%.tex}"
+            latexmlc "$file" \
+              --destination="$base.html" \
+              --format=html5
+          done
+
+      - name: Commit generated HTML
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add theorems/*.html
+          git diff --cached --quiet || git commit -m "Build LaTeX files to HTML"
+          git push
