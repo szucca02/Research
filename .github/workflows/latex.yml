@@ -1,14 +1,14 @@
 name: Convert LaTeX to HTML
 
+permissions:
+  contents: write
+
 on:
   push:
     paths:
       - 'theorems/**/*.tex'
       - '.github/workflows/latex.yml'
   workflow_dispatch:
-
-  permissions:
-    contents: write
 
 jobs:
   latex-to-html:
