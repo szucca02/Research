@@ -1,81 +1,36 @@
-/* Clean mathematical document */
+/* Overrides for LaTeXML mathematical documents */
 
-html {
-    background: white;
-}
-
-body {
-    max-width: 760px;
-    margin: 60px auto;
-    padding: 0 30px;
-
-    background: white;
-    color: #222;
-
+.ltx_document {
     font-family: Georgia, "Times New Roman", serif;
     font-size: 18px;
     line-height: 1.55;
 }
 
-/* Remove LaTeXML's document chrome */
-.ltx_page_header,
-.ltx_page_footer,
-.ltx_bibliography,
-.ltx_navigation {
-    display: none;
-}
-
 /* Proposition / theorem */
-.ltx_theorem {
-    margin: 2em 0;
+.ltx_title_theorem {
+    font-size: 1em !important;
+    font-weight: bold !important;
 }
 
-.ltx_title_theorem {
-    display: block !important;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 19px !important;
-    font-weight: bold !important;
-    font-style: normal !important;
-    margin: 0 0 0.6em 0 !important;
+.ltx_theorem {
+    margin-top: 1.5em !important;
+    margin-bottom: 1.5em !important;
 }
 
 /* Proof */
-.ltx_proof {
-    margin: 1.5em 0;
-}
-
 .ltx_title_proof {
-    display: block !important;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 18px !important;
+    font-size: 1em !important;
     font-weight: bold !important;
     font-style: normal !important;
-    margin: 0 0 0.5em 0 !important;
 }
 
-/* Ordinary text */
-p {
-    margin: 0.6em 0;
+.ltx_proof {
+    margin-top: 1.5em !important;
+    margin-bottom: 1.5em !important;
 }
 
-/* Equations */
-.ltx_equation {
-    margin: 1.2em 0 !important;
-}
-
-/* Equation numbers */
-.ltx_tag_equation {
-    font-size: 0.9em;
-}
-
-/* Lists */
-ul, ol {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-}
-
-/* Headings */
-h1, h2, h3, h4, h5, h6 {
-    font-family: Georgia, "Times New Roman", serif;
-    line-height: 1.3;
+/* Normal paragraphs */
+.ltx_para {
+    margin-top: 0.7em !important;
+    margin-bottom: 0.7em !important;
 }
